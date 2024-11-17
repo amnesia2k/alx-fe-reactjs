@@ -2,10 +2,9 @@ import { Outlet, Link } from "react-router-dom";
 import RecipeList from "./components/RecipeList";
 import AddRecipeForm from "./components/AddRecipeForm";
 import SearchBar from "./components/SearchBar";
-
+import FavoritesList from "./components/FavoritesList";
 import RecommendationsList from "./components/RecommendationsList";
-// import GenerateRecommendations from "./components/GenerateRecommendations";
-// import FavoritesList from "./components/FavouritesList";
+import GenerateRecommendations from "./components/GenerateRecommendations";
 
 const Layout = () => {
   return (
@@ -26,9 +25,11 @@ const Layout = () => {
           <AddRecipeForm />
           <SearchBar />
         </section>
-        <section>{/* <FavoritesList /> */}</section>
         <section>
-          {/* <GenerateRecommendations /> */}
+          <FavoritesList />
+        </section>
+        <section>
+          <GenerateRecommendations />
           <RecommendationsList />
         </section>
         <section>

@@ -8,13 +8,13 @@ const RecommendationsList = () => {
       <h2>Recommended for You</h2>
       {recommendations.length > 0 ? (
         recommendations.map((recipe) => (
-          <div key={recipe.id}>
+          <div key={recipe.id} style={{ marginBottom: "15px" }}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
           </div>
         ))
       ) : (
-        <p>No recommendations available. Add some favorites!</p>
+        <p>No recommendations available. Add some favorites to get started!</p>
       )}
     </div>
   );

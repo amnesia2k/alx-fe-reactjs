@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
 const useRecipeStore = create((set) => ({
-  recipes: [],
-  searchTerm: "",
-  filteredRecipes: [],
-  favorites: [], // Stores IDs of favorite recipes
-  recommendations: [], // Stores recommended recipes
+  recipes: [], // All recipes
+  searchTerm: "", // Current search term
+  filteredRecipes: [], // Recipes filtered by search term
+  favorites: [], // List of favorite recipe IDs
+  recommendations: [], // List of recommended recipes
 
-  // Add a recipe
+  // Add a new recipe to the store
   addRecipe: (newRecipe) =>
     set((state) => {
       const updatedRecipes = [...state.recipes, newRecipe];
@@ -17,14 +17,14 @@ const useRecipeStore = create((set) => ({
       return { recipes: updatedRecipes, filteredRecipes: filtered };
     }),
 
-  // Set recipes (initialize or replace)
+  // Set (initialize or replace) the recipes
   setRecipes: (recipes) =>
     set(() => ({
       recipes,
       filteredRecipes: recipes, // Default to all recipes initially
     })),
 
-  // Set search term and filter recipes
+  // Update the search term and filter recipes based on it
   setSearchTerm: (term) =>
     set((state) => {
       const filtered = state.recipes.filter((recipe) =>
@@ -33,7 +33,7 @@ const useRecipeStore = create((set) => ({
       return { searchTerm: term, filteredRecipes: filtered };
     }),
 
-  // Delete a recipe
+  // Delete a recipe from the store (and from favorites if applicable)
   deleteRecipe: (id) =>
     set((state) => {
       const updatedRecipes = state.recipes.filter((recipe) => recipe.id !== id);
@@ -42,7 +42,7 @@ const useRecipeStore = create((set) => ({
       );
       const updatedFavorites = state.favorites.filter(
         (favoriteId) => favoriteId !== id
-      ); // Remove deleted recipe from favorites
+      ); // Remove the recipe from favorites
       return {
         recipes: updatedRecipes,
         filteredRecipes: filtered,
@@ -50,7 +50,7 @@ const useRecipeStore = create((set) => ({
       };
     }),
 
-  // Update a recipe
+  // Update a specific recipe's data
   updateRecipe: (id, updatedData) =>
     set((state) => {
       const updatedRecipes = state.recipes.map((recipe) =>
@@ -62,26 +62,26 @@ const useRecipeStore = create((set) => ({
       return { recipes: updatedRecipes, filteredRecipes: filtered };
     }),
 
-  // Add a recipe to favorites
+  // Add a recipe to the favorites list
   addFavorite: (recipeId) =>
     set((state) => {
       if (!state.favorites.includes(recipeId)) {
         return { favorites: [...state.favorites, recipeId] };
       }
-      return state; // Avoid duplicate favorites
+      return state; // Avoid duplicate entries
     }),
 
-  // Remove a recipe from favorites
+  // Remove a recipe from the favorites list
   removeFavorite: (recipeId) =>
     set((state) => ({
       favorites: state.favorites.filter((id) => id !== recipeId),
     })),
 
-  // Generate recommendations based on favorites
+  // Generate personalized recipe recommendations based on favorites
   generateRecommendations: () =>
     set((state) => {
-      const recommended = state.recipes.filter(
-        (recipe) => state.favorites.includes(recipe.id) && Math.random() > 0.5
+      const recommended = state.recipes.filter((recipe) =>
+        state.favorites.includes(recipe.id)
       );
       return { recommendations: recommended };
     }),
