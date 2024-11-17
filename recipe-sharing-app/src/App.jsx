@@ -1,13 +1,26 @@
-import RecipeList from "./components/RecipeList";
-import AddRecipeForm from "./components/AddRecipeForm";
-import './App.css'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import "./App.css";
+import RecipeDetails from "./components/RecipeDetails";
+import Layout from "./Layout";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Layout />} />
+      <Route path="recipe/:recipeId" element={<RecipeDetails />} />
+    </>
+  )
+);
 
 const App = () => {
   return (
     <div>
-      <h1>Recipe Sharing App</h1>
-      <AddRecipeForm />
-      <RecipeList />
+      <RouterProvider router={router} />
     </div>
   );
 };
