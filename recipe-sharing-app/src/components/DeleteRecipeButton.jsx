@@ -6,8 +6,11 @@ const DeleteRecipeButton = ({ recipeId }) => {
   const navigate = useNavigate(); // Import and use the navigate hook
 
   const handleDelete = () => {
+    // Call the deleteRecipe action from Zustand
     deleteRecipe(recipeId);
-    navigate("/"); // Redirect to the main recipe list after deletion
+
+    // Navigate to the home page after deletion
+    navigate("/");
   };
 
   return <button onClick={handleDelete}>Delete Recipe</button>;

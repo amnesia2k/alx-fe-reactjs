@@ -8,11 +8,23 @@ const AddRecipeForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (title && description) {
-      addRecipe({ id: Date.now(), title, description });
-      setTitle("");
-      setDescription("");
+
+    // Ensure both fields are filled
+    if (!title || !description) {
+      alert("Please fill out all fields!");
+      return;
     }
+
+    // Add the recipe to the store
+    addRecipe({
+      id: Date.now(), // Use timestamp for unique ID
+      title,
+      description,
+    });
+
+    // Reset the form fields
+    setTitle("");
+    setDescription("");
   };
 
   return (
