@@ -1,21 +1,15 @@
 import { useState } from "react";
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
+  // State for form inputs
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password } = formData;
 
     // Basic validation
     if (!username || !email || !password) {
@@ -24,43 +18,44 @@ const RegistrationForm = () => {
     }
 
     setError("");
-    console.log("Submitted data:", formData);
+    console.log("Submitted data:", { username, email, password });
+
     // Simulate API call
     alert("Registration successful!");
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-4 max-w-sm mx-auto"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto">
       <h2 className="text-xl font-bold">Register</h2>
 
       {error && <p className="text-red-500">{error}</p>}
 
+      {/* Controlled input for username */}
       <input
         type="text"
         name="username"
-        value={formData.username}
-        onChange={handleChange}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
         className="border p-2"
       />
 
+      {/* Controlled input for email */}
       <input
         type="email"
         name="email"
-        value={formData.email}
-        onChange={handleChange}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
         className="border p-2"
       />
 
+      {/* Controlled input for password */}
       <input
         type="password"
         name="password"
-        value={formData.password}
-        onChange={handleChange}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
         className="border p-2"
       />
