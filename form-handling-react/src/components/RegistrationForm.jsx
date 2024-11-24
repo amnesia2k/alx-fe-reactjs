@@ -6,18 +6,24 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [error, setError] = useState("");
+  // State for errors
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic validation
-    if (!username || !email || !password) {
-      setError("All fields are required!");
-      return;
-    }
+    // Basic validation logic
+    const newErrors = {};
 
-    setError("");
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+
+    setErrors(newErrors);
+
+    // Stop submission if there are errors
+    if (Object.keys(newErrors).length > 0) return;
+
     console.log("Submitted data:", { username, email, password });
 
     // Simulate API call
@@ -28,7 +34,12 @@ const RegistrationForm = () => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto">
       <h2 className="text-xl font-bold">Register</h2>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {/* Display error messages */}
+      {Object.values(errors).map((error, index) => (
+        <p key={index} className="text-red-500">
+          {error}
+        </p>
+      ))}
 
       {/* Controlled input for username */}
       <input
@@ -39,6 +50,7 @@ const RegistrationForm = () => {
         placeholder="Username"
         className="border p-2"
       />
+      {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
 
       {/* Controlled input for email */}
       <input
@@ -49,6 +61,7 @@ const RegistrationForm = () => {
         placeholder="Email"
         className="border p-2"
       />
+      {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
       {/* Controlled input for password */}
       <input
@@ -59,6 +72,7 @@ const RegistrationForm = () => {
         placeholder="Password"
         className="border p-2"
       />
+      {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
       <button type="submit" className="bg-blue-500 text-white p-2 rounded">
         Register
