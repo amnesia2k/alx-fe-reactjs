@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
+// Function to fetch posts from API
 const fetchPosts = async () => {
   const { data } = await axios.get(
     "https://jsonplaceholder.typicode.com/posts"
@@ -9,9 +10,16 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
+  // React Query hook with caching configurations
   const { data, isLoading, isError, error, refetch } = useQuery(
-    "posts",
-    fetchPosts
+    "posts", // Query key
+    fetchPosts, // Fetching function
+    {
+      staleTime: 60000, // Data is considered fresh for 1 minute (60,000 ms)
+      cacheTime: 300000, // Cache will persist for 5 minutes (300,000 ms)
+      refetchOnWindowFocus: false, // Disable refetching when window regains focus
+      keepPreviousData: true, // Retain previously fetched data while new data is being fetched
+    }
   );
 
   if (isLoading) return <p>Loading posts...</p>;
