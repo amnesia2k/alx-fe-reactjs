@@ -7,9 +7,7 @@ const FormikForm = () => {
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
+    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
@@ -36,11 +34,7 @@ const FormikForm = () => {
               placeholder="Username"
               className="border p-2 w-full"
             />
-            <ErrorMessage
-              name="username"
-              component="p"
-              className="text-red-500 text-sm"
-            />
+            <ErrorMessage name="username" component="p" className="text-red-500 text-sm" />
           </div>
 
           <div>
@@ -50,11 +44,7 @@ const FormikForm = () => {
               placeholder="Email"
               className="border p-2 w-full"
             />
-            <ErrorMessage
-              name="email"
-              component="p"
-              className="text-red-500 text-sm"
-            />
+            <ErrorMessage name="email" component="p" className="text-red-500 text-sm" />
           </div>
 
           <div>
@@ -64,11 +54,7 @@ const FormikForm = () => {
               placeholder="Password"
               className="border p-2 w-full"
             />
-            <ErrorMessage
-              name="password"
-              component="p"
-              className="text-red-500 text-sm"
-            />
+            <ErrorMessage name="password" component="p" className="text-red-500 text-sm" />
           </div>
 
           <button
