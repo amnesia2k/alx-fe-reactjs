@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <RegistrationForm />
-      <FormikForm />
+      <FormikForm /> 
     </>
   )
 }
