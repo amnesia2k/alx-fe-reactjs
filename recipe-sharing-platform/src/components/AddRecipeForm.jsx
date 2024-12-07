@@ -13,13 +13,14 @@ const AddRecipeForm = () => {
     ingredients: "",
     steps: "",
   });
+  // Function to handle form submission
 
   // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Explicitly accessing target.value here
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value, // Using target.value to update state
     }));
   };
 
@@ -48,7 +49,7 @@ const AddRecipeForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 mt-10 bg-white shadow-md rounded-lg">
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-semibold text-center mb-4">
         Add New Recipe
       </h2>
@@ -63,7 +64,7 @@ const AddRecipeForm = () => {
             id="title"
             name="title"
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleChange} // onChange calls handleChange to update state
             className="mt-1 p-2 w-full border rounded-md"
             placeholder="Enter recipe title"
           />
@@ -81,7 +82,7 @@ const AddRecipeForm = () => {
             id="ingredients"
             name="ingredients"
             value={formData.ingredients}
-            onChange={handleChange}
+            onChange={handleChange} // onChange calls handleChange to update state
             className="mt-1 p-2 w-full border rounded-md"
             placeholder="List your ingredients"
           />
@@ -99,7 +100,7 @@ const AddRecipeForm = () => {
             id="steps"
             name="steps"
             value={formData.steps}
-            onChange={handleChange}
+            onChange={handleChange} // onChange calls handleChange to update state
             className="mt-1 p-2 w-full border rounded-md"
             placeholder="Describe how to prepare the dish"
           />
