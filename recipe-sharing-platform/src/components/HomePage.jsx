@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import recipeData from '../data.json'
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("/data.json")
-      .then((res) => res.json())
-      .then((data) => setRecipes(data))
-      .catch((error) => console.error("Error:", error));
+    // fetch(recipeData)
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data))
+    //   .catch((error) => console.error("Error:", error));
+    setRecipes(recipeData)
   }, []);
   return (
     <div className="container mx-auto p-4">
