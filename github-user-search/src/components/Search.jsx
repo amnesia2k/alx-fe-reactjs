@@ -78,7 +78,7 @@ const Search = () => {
                 <p>Public Repos: {user.public_repos}</p>
                 <p>Public Gists: {user.public_gists}</p>
                 <a
-                  href={`http://github.com/${user.login}`}
+                  href={user.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-500"
