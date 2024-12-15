@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 
 const Search = () => {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]); // Change state to store multiple users
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [location, setLocation] = useState("");
@@ -17,15 +17,15 @@ const Search = () => {
 
     setLoading(true);
     setError("");
-    setUser(null);
+    setUsers([]); // Clear the users state before the new search
 
     try {
       const data = await fetchUserData(username, location, minRepos);
-      console.log("User Data: ", data); // Log the user data to see if it's valid
-      setUser(data);
+      console.log("Users Data: ", data); // Log the user data to see if it's valid
+      setUsers(data); // Set the array of users
     } catch (err) {
       console.error("Error fetching user data:", err);
-      setError("Looks like we can't find the user.");
+      setError("Looks like we can't find the users.");
     } finally {
       setLoading(false);
     }
@@ -57,30 +57,39 @@ const Search = () => {
             Search
           </Button>
         </div>
-
-        <div className="max-w-4xl w-full mx-auto">
-          {loading && <p>Loading...</p>}
-          {error && <p>{error}</p>}
-          {user && (
-            <div>
-              <h2>{user?.login}</h2>
-              <img src={user?.avatar_url} alt={user?.login} />
-              <p>Bio: {user?.bio}</p>
-              <p>Followers: {user?.followers}</p>
-              <p>Following: {user?.following}</p>
-              <p>Public Repos: {user?.public_repos}</p>
-              <p>Public Gists: {user?.public_gists}</p>
-              <a
-                href={`http://github.com/${user?.login}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Profile
-              </a>
-            </div>
-          )}
-        </div>
       </form>
+
+      <div className="max-w-4xl w-full mx-auto">
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {users.length > 0 && (
+          <div>
+            {users.map((user) => (
+              <div key={user.login} className="mb-8">
+                <h2 className="text-2xl font-bold">{user.login}</h2>
+                <img
+                  src={user.avatar_url}
+                  alt={user.login}
+                  className="w-24 h-24 rounded-full mb-4"
+                />
+                <p>Bio: {user.bio}</p>
+                <p>Followers: {user.followers}</p>
+                <p>Following: {user.following}</p>
+                <p>Public Repos: {user.public_repos}</p>
+                <p>Public Gists: {user.public_gists}</p>
+                <a
+                  href={`http://github.com/${user.login}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500"
+                >
+                  View Profile
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
