@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://api.github.com/search/users";
+const baseUrl = "https://api.github.com/search/users?q";
 
 export const fetchUserData = async (username, location = "", minRepos = "") => {
   try {
@@ -15,7 +15,7 @@ export const fetchUserData = async (username, location = "", minRepos = "") => {
     }
 
     // Corrected endpoint for searching users
-    const res = await axios.get(`${baseUrl}?q=${query}`);
+    const res = await axios.get(`${baseUrl}=${query}`);
 
     if (res?.data?.items?.length > 0) {
       const users = res.data.items; // Select the first user found
