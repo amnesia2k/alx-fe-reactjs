@@ -21,7 +21,7 @@ const Search = () => {
 
     try {
       const data = await fetchUserData(username, location, minRepos);
-      console.log("Users Data: ", data); // Log the user data to see if it's valid
+      ("Users Data: ", data); // Log the user data to see if it's valid
       setUsers(data); // Set the array of users
     } catch (err) {
       console.error("Error fetching user data:", err);
